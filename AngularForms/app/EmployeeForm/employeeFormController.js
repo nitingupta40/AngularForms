@@ -1,11 +1,11 @@
-﻿angularFormsApp.controller('employeeFormController',
+angularFormsApp.controller('employeeFormController',
     function employeeFormController($scope, $window, $routeParams, DataService) {
 
         if ($routeParams.id)
             $scope.employee = DataService.getEmployee($routeParams.id);
         else
-            $scope.employee = {id : 0};
-        
+            $scope.employee = { id: 0 };
+
         $scope.editableEmployee = angular.copy($scope.employee);
 
         $scope.departments = [
@@ -15,12 +15,16 @@
                             "Administration"
         ];
 
+        $scope.shouldShowFullName = function () {
+            return true;
+        };
+
         $scope.submitForm = function () {
 
             if ($scope.editableEmployee.id == 0) {
                 DataService.insertEmployee($scope.editableEmployee);
             }
-            else{
+            else {
                 DataService.updateEmployee($scope.editableEmployee);
             }
 
@@ -31,4 +35,5 @@
         $scope.cancelForm = function () {
             $window.history.back();
         };
+
     });
