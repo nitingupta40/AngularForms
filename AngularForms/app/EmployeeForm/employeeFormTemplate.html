@@ -1,11 +1,29 @@
-﻿<form class="form-horizontal" role="form">
+<form class="form-horizontal" name="employeeForm" novalidate role="form">
     <fieldset>
         <legend>Basic Information</legend>
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error' : employeeForm.fullName.$invalid && employeeForm.fullName.$dirty}">
             <label for="fullName" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-9">
                 <input type="text" id="fullName" name="fullName" class="form-control"
-                       ng-model="editableEmployee.fullName" />
+                       ng-model="editableEmployee.fullName" ng-required="shouldShowFullName()"
+                       ng-pattern="/^A/" />
+                <span class="help-block" ng-if="employeeForm.fullName.$error.required">
+                    <!--ng-show="employeeForm.fullName.$error.required && employeeForm.fullName.$dirty">-->
+                    Full name is required
+                </span>
+                <span class="help-block" ng-if="employeeForm.fullName.$error.pattern">Full Name must start from A</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error' : employeeForm.email.$invalid && employeeForm.email.$dirty}">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+                <input type="email" id="email" name="email" class="form-control"
+                       ng-model="editableEmployee.email" ng-required="shouldShowFullName()" />
+                <span class="help-block" ng-if="employeeForm.fullName.$error">
+                    <!--ng-show="employeeForm.email.$invalid && employeeForm.email.$dirty"-->
+                    Enter a valid Email
+                </span>
             </div>
         </div>
 
@@ -21,9 +39,7 @@
             <label for="department" class="col-sm-3 control-label">Department</label>
             <div class="col-sm-9">
                 <select name="department" id="department" class="form-control"
-                        ng-model="editableEmployee.department" ng-options="dept for dept in departments">
-
-                </select>
+                        ng-model="editableEmployee.department" ng-options="dept for dept in departments"></select>
             </div>
         </div>
     </fieldset>
@@ -90,7 +106,9 @@
     <div class="col-sm-offset-3 col-sm-9">
         <input type="button" class="btn btn-default" value="Cancel"
                ng-click="cancelForm()" />
-        <input type="submit" class="btn btn-primary" value="Submit" 
-               ng-click="submitForm()" />
+        <input type="submit" class="btn btn-primary" value="Submit"
+               ng-click="submitForm()" ng-disabled="employeeForm.$invalid" />
+        <input type="reset" class="btn btn-warning" value="Reset"
+               ng-click="resetForm()"/>
     </div>
 </form>
