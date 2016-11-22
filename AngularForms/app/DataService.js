@@ -1,4 +1,4 @@
-﻿angularFormsApp.factory('DataService',
+angularFormsApp.factory('DataService',
     function () {
         var getEmployee = function (id) {
             if (id == 123) {
@@ -6,6 +6,7 @@
                     id: 123,
                     fullName: "Gupta Nitin",
                     notes: "it is wokring",
+                    email:"abc@abc.com.au",
                     department: "Engineering",
                     perkCar: true,
                     perkStock: false,
